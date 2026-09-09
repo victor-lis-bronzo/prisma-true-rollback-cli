@@ -34,12 +34,12 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - Verify each error preserves its detail fields (e.g., `TransactionAbortedError` retains the failing statement text and reason).
     - _Requirements: 4.5_
 
-- [ ] 3. Implement Logger / Redactor
+- [x] 3. Implement Logger / Redactor
   - [x] 3.1 Implement the Redactor
     - Replace the DATABASE_URL value, username, password, host, and port with a fixed redaction placeholder for arbitrary carrier text.
     - _Requirements: 8.4, 8.5_
 
-  - [~] 3.2 Implement the Logger routing all output through the Redactor
+  - [x] 3.2 Implement the Logger routing all output through the Redactor
     - Implement `step` (R8.1 "Step X of N: name"), `stepDone` (R8.2), `stepFailed`→stderr (R8.3), `info`, `warn` (R2.3), `verbose` (R8.4, only when verbose), `error`→stderr.
     - Every method passes its message through `Redactor.redact` before writing so redaction cannot be bypassed.
     - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5, 2.3_
@@ -214,12 +214,12 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - Full restore yields `fullyRestored:true` and the "aborted, prior state restored" message path (R6.6).
     - _Requirements: 6.6_
 
-- [ ] 13. Implement Rollback Orchestrator
-  - [~] 13.1 Implement target validation
+- [x] 13. Implement Rollback Orchestrator
+  - [x] 13.1 Implement target validation
     - Validate the Target_Migration: unknown folder (R1.4), no tracking record (R1.5), and eligibility that only the most recently applied migration may be rolled back (R1.6). Each failure → exit 1, no changes.
     - _Requirements: 1.4, 1.5, 1.6_
 
-  - [~] 13.2 Implement `RollbackOrchestrator.run` step sequencing and safeguards
+  - [x] 13.2 Implement `RollbackOrchestrator.run` step sequencing and safeguards
     - Enforce the canonical step order (Step 1 generate → Step 2 snapshot → Step 3 transaction → Step 4 delete → Step 5 confirm) with step messages (R8.1, R8.2).
     - Display the destructive/irreversible warning and Target_Migration name before any change (R2.3); enforce interactive confirmation with a 60s timeout, declining/timeout → exit 0 no changes (R2.4, R2.5) unless `--yes` (R2.6).
     - Handle dry-run: print complete Reverse_SQL and exit 0 with zero changes (R3.4).
@@ -228,7 +228,7 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - On success: confirm folder deletion/full rollback message and exit 0 (R5.5, R5.6).
     - _Requirements: 2.3, 2.4, 2.5, 2.6, 3.4, 5.5, 5.6, 6.1, 6.2, 6.3, 8.1, 8.2_
 
-  - [~] 13.3 Implement exit-code mapping and connection-close guarantee
+  - [x] 13.3 Implement exit-code mapping and connection-close guarantee
     - Wrap the operation in `try/finally`; close any opened connection on every path (R7.6).
     - Map outcomes to exit codes: 0 (success/safe abort — version, decline, dry-run), 1 (validation/config/recovery), non-zero (execution failures) per the design's exit-code summary.
     - _Requirements: 4.3, 5.6, 6.6, 6.7, 7.6_
