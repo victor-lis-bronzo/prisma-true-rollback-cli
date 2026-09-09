@@ -149,6 +149,16 @@
         "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
         "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
         "timestamp": 1788952353941
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952928419
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788953139494
       }
     ],
     "7.3 Implement SQLite driver": [
@@ -156,6 +166,16 @@
         "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
         "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
         "timestamp": 1788952353946
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952929327
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788953140450
       }
     ],
     "7.4 Implement MySQL driver": [
@@ -163,6 +183,16 @@
         "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
         "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
         "timestamp": 1788952353950
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952930772
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788953141849
       }
     ],
     "8.1 Implement `PrismaEngineRunner.runDiff`": [
@@ -170,6 +200,16 @@
         "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
         "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
         "timestamp": 1788952353955
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952776212
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952911822
       }
     ],
     "9.1 Implement `ReverseSqlGenerator.generate` and `isEffectivelyEmpty`": [
@@ -177,6 +217,16 @@
         "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
         "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
         "timestamp": 1788952353959
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952931816
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788953142838
       }
     ],
     "10.1 Implement `TransactionalExecutor.applyReversal`": [
@@ -198,6 +248,16 @@
         "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
         "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
         "timestamp": 1788952353971
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952775346
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952911006
       }
     ],
     "12.1 Implement `RecoveryCoordinator.recover`": [
@@ -275,6 +335,34 @@
         "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
         "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
         "timestamp": 1788952750578
+      }
+    ],
+    "11. Implement Filesystem Snapshot / Cleanup Manager": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952911010
+      }
+    ],
+    "8. Implement Prisma Engine Runner": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952911827
+      }
+    ],
+    "7. Implement DB driver abstraction and per-engine drivers": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788953141853
+      }
+    ],
+    "9. Implement Reverse-SQL Generator": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788953142844
       }
     ]
   }

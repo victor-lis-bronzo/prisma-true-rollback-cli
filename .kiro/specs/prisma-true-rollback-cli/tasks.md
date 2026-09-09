@@ -107,20 +107,20 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - **Property 7: Ambiguous environments require an override** — for any ambiguous classification, guard blocks (non-zero, no changes) without override and permits proceeding with override.
     - **Validates: Requirements 2.2**
 
-- [ ] 7. Implement DB driver abstraction and per-engine drivers
+- [x] 7. Implement DB driver abstraction and per-engine drivers
   - [x] 7.1 Define `DbDriver`, `Connection`, and `Tx` interfaces
     - Include `supportsTransactionalDDL` capability, `connect(url, timeoutMs)`, `redactedTarget(url)`, `transaction`, `close`, and `Tx` statement/record operations.
     - _Requirements: 4.1, 4.6, 7.3, 7.4, 7.6_
 
-  - [~] 7.2 Implement PostgreSQL driver
+  - [x] 7.2 Implement PostgreSQL driver
     - `supportsTransactionalDDL = true`; 10s connect timeout; `redactedTarget` returns host only with credentials stripped; transaction wrapper commits on resolve / rolls back on throw; `Tx` operations for the tracking table.
     - _Requirements: 4.1, 7.3, 7.4, 7.6_
 
-  - [~] 7.3 Implement SQLite driver
+  - [x] 7.3 Implement SQLite driver
     - `supportsTransactionalDDL = true`; connect/close/transaction/`Tx` semantics as above.
     - _Requirements: 4.1, 7.3, 7.4, 7.6_
 
-  - [~] 7.4 Implement MySQL driver
+  - [x] 7.4 Implement MySQL driver
     - `supportsTransactionalDDL = false` (implicit DDL commits); connect/close/transaction/`Tx` semantics as above.
     - _Requirements: 4.1, 4.6, 7.3, 7.4, 7.6_
 
@@ -132,8 +132,8 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - Against ephemeral PostgreSQL, MySQL, and SQLite: single-transaction commit/rollback (Postgres/SQLite), 10s connection-timeout behavior with redacted host (R7.4), and connection cleanup (R7.6). 1–3 representative scenarios per engine (NOT property tests).
     - _Requirements: 4.1, 7.3, 7.4, 7.6_
 
-- [ ] 8. Implement Prisma Engine Runner
-  - [~] 8.1 Implement `PrismaEngineRunner.runDiff`
+- [x] 8. Implement Prisma Engine Runner
+  - [x] 8.1 Implement `PrismaEngineRunner.runDiff`
     - Invoke the Prisma engine (`prisma migrate diff`) as a child process with a 30s timeout to produce reverse-direction SQL.
     - Return `ok` (sql + command), `nonzero` (exitCode + full stderr), `timeout` (kill child), or `notFound` (ENOENT/binary missing).
     - _Requirements: 3.1, 3.2, 3.5, 3.6_
@@ -150,8 +150,8 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - 1–3 representative tests spawning the real engine (or a stub binary) verifying `prisma migrate diff` is invoked with correct arguments and its output captured (NOT a property test).
     - _Requirements: 3.1_
 
-- [ ] 9. Implement Reverse-SQL Generator
-  - [~] 9.1 Implement `ReverseSqlGenerator.generate` and `isEffectivelyEmpty`
+- [x] 9. Implement Reverse-SQL Generator
+  - [x] 9.1 Implement `ReverseSqlGenerator.generate` and `isEffectivelyEmpty`
     - Post-process engine output into `ReverseSql` (`raw` + parsed `statements`).
     - `isEffectivelyEmpty` returns true iff the script has zero executable statements (only whitespace + SQL comments); such scripts raise `ReverseSqlError` (R3.3).
     - Provide the `raw` output for dry-run display.
@@ -184,8 +184,8 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - Both reverse SQL and tracking-record delete run in one transaction, delete after reverse (R4.1, R4.2); successful commit maps to exit 0 (R4.3).
     - _Requirements: 4.1, 4.2, 4.3_
 
-- [ ] 11. Implement Filesystem Snapshot / Cleanup Manager
-  - [~] 11.1 Implement `FsSnapshotManager.capture`, `delete`, `restore`, `equals`
+- [x] 11. Implement Filesystem Snapshot / Cleanup Manager
+  - [x] 11.1 Implement `FsSnapshotManager.capture`, `delete`, `restore`, `equals`
     - `capture`: recursively read all files (relative POSIX path + bytes + mode), sorted for deterministic comparison (read-only) (R5.1, R6.1).
     - `delete`: recursive removal; missing folder → `alreadyAbsent` no-op that continues (R5.2, R5.3); throw `FsDeleteError` on permission/other failure (R5.4).
     - `restore`: recreate folder byte-for-byte from snapshot (R6.5).
