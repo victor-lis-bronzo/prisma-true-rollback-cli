@@ -234,6 +234,16 @@
         "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
         "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
         "timestamp": 1788952353963
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788953155709
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788953259041
       }
     ],
     "10.2 Implement `TransactionalExecutor.restoreDatabase` (recovery path)": [
@@ -241,6 +251,16 @@
         "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
         "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
         "timestamp": 1788952353967
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788953156566
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788953260253
       }
     ],
     "11.1 Implement `FsSnapshotManager.capture`, `delete`, `restore`, `equals`": [
@@ -265,6 +285,16 @@
         "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
         "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
         "timestamp": 1788952353979
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788953263912
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788953391585
       }
     ],
     "13.1 Implement target validation": [
@@ -363,6 +393,20 @@
         "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
         "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
         "timestamp": 1788953142844
+      }
+    ],
+    "10. Implement Transactional Executor": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788953260258
+      }
+    ],
+    "12. Implement Compensating-Recovery Coordinator": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788953391590
       }
     ]
   }

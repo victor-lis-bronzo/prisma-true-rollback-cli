@@ -161,14 +161,14 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - **Property 8: Empty reverse-SQL detection** — for any script of only whitespace + SQL comments, classify as effectively empty (abort, non-zero); for any script with ≥1 executable statement, classify as non-empty.
     - **Validates: Requirements 3.3**
 
-- [ ] 10. Implement Transactional Executor
-  - [~] 10.1 Implement `TransactionalExecutor.applyReversal`
+- [x] 10. Implement Transactional Executor
+  - [x] 10.1 Implement `TransactionalExecutor.applyReversal`
     - Guard first: if the driver reports no transactional-DDL support, abort before executing any reverse SQL (throw `UnsupportedDdlError`) (R4.6).
     - Otherwise open a single transaction: exec each reverse statement, then delete the target tracking record; commit on success (R4.1, R4.2, R4.3).
     - On any statement failure, roll back so DB + tracking match pre-transaction state, then throw `TransactionAbortedError` with the failing statement + reason (R4.4, R4.5).
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 4.6_
 
-  - [~] 10.2 Implement `TransactionalExecutor.restoreDatabase` (recovery path)
+  - [x] 10.2 Implement `TransactionalExecutor.restoreDatabase` (recovery path)
     - Re-apply the original migration's forward statements and re-insert the saved tracking record within a single transaction (used by recovery, R6.4).
     - _Requirements: 6.4_
 
@@ -200,8 +200,8 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - **Property 3: Delete semantics and idempotence** — for any folder, delete removes it and all files/subdirectories entirely; for any nonexistent path, delete is a no-op reported as already-absent; deleting twice equals deleting once.
     - **Validates: Requirements 5.2, 5.3**
 
-- [ ] 12. Implement Compensating-Recovery Coordinator
-  - [~] 12.1 Implement `RecoveryCoordinator.recover`
+- [x] 12. Implement Compensating-Recovery Coordinator
+  - [x] 12.1 Implement `RecoveryCoordinator.recover`
     - Restore DB via `restoreDatabase` (re-apply forward statements + re-insert tracking record) and restore the Migration_Folder from the snapshot (R6.4, R6.5).
     - Verify via `equals` and DB re-read: full match → `RecoveryReport{fullyRestored:true}` (R6.6); any mismatch → `fullyRestored:false` with `unrestored` elements and per-element manual steps (R6.7).
     - _Requirements: 6.4, 6.5, 6.6, 6.7_
