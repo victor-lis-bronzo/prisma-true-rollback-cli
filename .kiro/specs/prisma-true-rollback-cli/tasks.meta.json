@@ -31,6 +31,10 @@
     "10.4 Write property test for non-transactional-DDL guard": {
       "status": "passed",
       "lastRunTimestamp": 1788955673893
+    },
+    "13.7 Write property test for connection-close guarantee": {
+      "status": "passed",
+      "lastRunTimestamp": 1788956372025
     }
   },
   "executionHistory": {
@@ -425,6 +429,11 @@
         "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
         "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
         "timestamp": 1788952354005
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788956699430
       }
     ],
     "2. Define shared data models, types, and error classes": [
@@ -816,6 +825,78 @@
         "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
         "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
         "timestamp": 1788956235427
+      }
+    ],
+    "13.7 Write property test for connection-close guarantee": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788956250225
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788956447925
+      }
+    ],
+    "13.8 Write unit tests for validation branches and safeguard/FS wiring": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788956251616
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788956446976
+      }
+    ],
+    "15.2 Write end-to-end integration test for the entrypoint": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788956252601
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788956449004
+      }
+    ],
+    "7.6 Write integration tests for real DB engines": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788956467791
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788956697019
+      }
+    ],
+    "8.4 Write integration test for real Prisma engine invocation": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788956468722
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788956698455
+      }
+    ],
+    "7.5 Write unit tests for `redactedTarget` and capability flags": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788956710171
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788956798671
       }
     ]
   }

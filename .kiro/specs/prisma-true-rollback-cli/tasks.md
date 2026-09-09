@@ -124,11 +124,11 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - `supportsTransactionalDDL = false` (implicit DDL commits); connect/close/transaction/`Tx` semantics as above.
     - _Requirements: 4.1, 4.6, 7.3, 7.4, 7.6_
 
-  - [ ]* 7.5 Write unit tests for `redactedTarget` and capability flags
+  - [x]* 7.5 Write unit tests for `redactedTarget` and capability flags
     - Verify `redactedTarget` strips credentials to host-only across engines; verify `supportsTransactionalDDL` is true for Postgres/SQLite and false for MySQL.
     - _Requirements: 7.4, 4.6, 8.5_
 
-  - [ ]* 7.6 Write integration tests for real DB engines
+  - [x]* 7.6 Write integration tests for real DB engines
     - Against ephemeral PostgreSQL, MySQL, and SQLite: single-transaction commit/rollback (Postgres/SQLite), 10s connection-timeout behavior with redacted host (R7.4), and connection cleanup (R7.6). 1–3 representative scenarios per engine (NOT property tests).
     - _Requirements: 4.1, 7.3, 7.4, 7.6_
 
@@ -146,7 +146,7 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - 30s timeout kills the child and returns `timeout` (R3.5); ENOENT returns `notFound` (R3.6).
     - _Requirements: 3.5, 3.6_
 
-  - [ ]* 8.4 Write integration test for real Prisma engine invocation
+  - [x]* 8.4 Write integration test for real Prisma engine invocation
     - 1–3 representative tests spawning the real engine (or a stub binary) verifying `prisma migrate diff` is invoked with correct arguments and its output captured (NOT a property test).
     - _Requirements: 3.1_
 
@@ -245,11 +245,11 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - **Property 9: Dry-run purity** — for any generated Reverse_SQL, the dry-run flag emits the complete Reverse_SQL verbatim, performs zero DB/FS changes, and exits 0.
     - **Validates: Requirements 3.4**
 
-  - [ ]* 13.7 Write property test for connection-close guarantee
+  - [x]* 13.7 Write property test for connection-close guarantee
     - **Property 13: Opened connections are always closed** — for any execution path (success or failure injected at any step) where a connection was opened, it is closed exactly once before termination. Use a fake connection tracking open/close counts.
     - **Validates: Requirements 7.6**
 
-  - [ ]* 13.8 Write unit tests for validation branches and safeguard/FS wiring
+  - [x]* 13.8 Write unit tests for validation branches and safeguard/FS wiring
     - Unknown folder (R1.4), no tracking record (R1.5); destructive warning before changes (R2.3), interactive gate (R2.4), decline/60s timeout → exit 0 (R2.5), `--yes` skips prompt (R2.6); snapshot-before-delete ordering (R5.1), recovery-on-failure wiring (R5.4), success message (R5.5), exit 0 (R5.6); snapshot precedes first destructive action (R6.1), capture-failure abort (R6.2), recovery initiation (R6.3).
     - _Requirements: 1.4, 1.5, 2.3, 2.4, 2.5, 2.6, 5.1, 5.4, 5.5, 5.6, 6.1, 6.2, 6.3_
 
@@ -263,11 +263,11 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - Ensure the bin shebang and `package.json` `bin` mapping make the CLI runnable via `npx`.
     - _Requirements: 1.1, 1.2, 1.3, 1.7, 2.1, 2.2, 7.1, 7.2, 7.3, 7.4, 7.5, 7.6_
 
-  - [ ]* 15.2 Write end-to-end integration test for the entrypoint
+  - [x]* 15.2 Write end-to-end integration test for the entrypoint
     - Drive representative flows through the entrypoint (e.g., `--version`, missing-arg error, dry-run) verifying exit codes and that no DB/FS changes occur on non-destructive paths (NOT a property test).
     - _Requirements: 1.7, 1.2, 3.4_
 
-- [~] 16. Final checkpoint — ensure all tests pass
+- [x] 16. Final checkpoint — ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 ## Notes
