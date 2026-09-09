@@ -139,7 +139,8 @@ describe('Property 3: delete semantics and idempotence', () => {
       ),
       { numRuns: 100 },
     );
-  });
+    // FS-heavy on slower platforms (notably Windows), so allow generous time.
+  }, 60_000);
 
   it('deleting a path that never existed is a no-op reported as already-absent (>=100 runs)', async () => {
     const manager = new FsSnapshotManager();
@@ -166,5 +167,6 @@ describe('Property 3: delete semantics and idempotence', () => {
       ),
       { numRuns: 100 },
     );
-  });
+    // FS-heavy on slower platforms (notably Windows), so allow generous time.
+  }, 60_000);
 });

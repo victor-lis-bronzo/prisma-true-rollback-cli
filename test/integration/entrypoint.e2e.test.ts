@@ -111,10 +111,13 @@ describe('npx entrypoint — end-to-end (Task 15.2)', () => {
 
   beforeAll(async () => {
     // Ensure dist/index.js reflects the current source before driving it.
+    // `shell: true` is required on Windows, where the npm launcher is
+    // `npm.cmd` and cannot be spawned directly via execFile (spawn npm ENOENT).
     await execFileAsync('npm', ['run', 'build'], {
       cwd: REPO_ROOT,
       timeout: BUILD_TIMEOUT_MS,
       encoding: 'utf8',
+      shell: true,
     });
   }, BUILD_TIMEOUT_MS + 10_000);
 
