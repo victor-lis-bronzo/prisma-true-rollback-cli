@@ -206,11 +206,11 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - Verify via `equals` and DB re-read: full match → `RecoveryReport{fullyRestored:true}` (R6.6); any mismatch → `fullyRestored:false` with `unrestored` elements and per-element manual steps (R6.7).
     - _Requirements: 6.4, 6.5, 6.6, 6.7_
 
-  - [ ]* 12.2 Write property test for partial-recovery reporting
+  - [x]* 12.2 Write property test for partial-recovery reporting
     - **Property 18: Partial recovery reports exactly the unrestored elements** — for any recovery that fails to restore some subset of {Database, Tracking_Table record, Migration_Folder}, terminate exit 1 and list exactly those unrestored elements with specific manual steps for each. Use a fake driver/fs with injected restore failures.
     - **Validates: Requirements 6.7**
 
-  - [ ]* 12.3 Write unit test for full-restore outcome
+  - [x]* 12.3 Write unit test for full-restore outcome
     - Full restore yields `fullyRestored:true` and the "aborted, prior state restored" message path (R6.6).
     - _Requirements: 6.6_
 
@@ -233,15 +233,15 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - Map outcomes to exit codes: 0 (success/safe abort — version, decline, dry-run), 1 (validation/config/recovery), non-zero (execution failures) per the design's exit-code summary.
     - _Requirements: 4.3, 5.6, 6.6, 6.7, 7.6_
 
-  - [ ]* 13.4 Write property test for atomicity baseline restoration
+  - [x]* 13.4 Write property test for atomicity baseline restoration
     - **Property 1: Atomicity — any failure restores the pre-operation baseline** — for any operation and any failure injected at any point after pre-flight (failing reverse statement in the transaction, or FS failure after commit), the final DB + tracking record + Migration_Folder equal the Pre_Operation_Snapshot baseline, with no partial changes. Use in-memory DB/FS models + fake driver/snapshot manager with a generated failure-injection point.
     - **Validates: Requirements 4.4, 6.3, 6.4, 6.5**
 
-  - [ ]* 13.5 Write property test for eligibility of only the latest migration
+  - [x]* 13.5 Write property test for eligibility of only the latest migration
     - **Property 5: Only the most recently applied migration is rollback-eligible** — for any tracking history, a non-latest target is rejected (exit 1, no changes) while the latest passes the eligibility guard.
     - **Validates: Requirements 1.6**
 
-  - [ ]* 13.6 Write property test for dry-run purity
+  - [x]* 13.6 Write property test for dry-run purity
     - **Property 9: Dry-run purity** — for any generated Reverse_SQL, the dry-run flag emits the complete Reverse_SQL verbatim, performs zero DB/FS changes, and exits 0.
     - **Validates: Requirements 3.4**
 
