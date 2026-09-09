@@ -17,14 +17,70 @@ The CLI orchestrates a fixed, ordered sequence:
 
 If any step fails after the point of no return, **compensating recovery** restores the database and the migration folder to their prior state.
 
+## Installation & usage
+
+The tool is invoked via `npx` from the root of your Prisma project (where your `prisma/schema.prisma` and `DATABASE_URL` live):
+
+```bash
+npx prisma-true-rollback <migration-name> [flags]
+```
+
+`<migration-name>` is the timestamped folder name of the migration under `prisma/migrations/` — and it must be the **most recently applied** migration.
+
+### CLI commands & flags
+
+| Command / Flag        | Alias | Description                                                                                       |
+| --------------------- | ----- | ------------------------------------------------------------------------------------------------- |
+| `<migration-name>`    | —     | The target migration to roll back. Must be the most recently applied migration. Exactly one required. |
+| `--dry-run`           | —     | Print the generated reverse SQL and exit **without making any change** to the database or files.  |
+| `--yes`               | `-y`  | Skip the interactive confirmation prompt (non-interactive mode).                                  |
+| `--override`          | —     | Authorize the rollback when the environment cannot be determined to be a development environment. |
+| `--verbose`           | —     | Print executed database statements and the invoked Prisma engine command (credentials redacted).  |
+| `--version`           | `-v`  | Print the CLI version and exit.                                                                   |
+
+### Examples
+
+| Goal                                                   | Command                                                          |
+| ------------------------------------------------------ | --------------------------------------------------------------- |
+| Preview the reverse SQL without changing anything      | `npx prisma-true-rollback 20240101120000_add_users --dry-run`   |
+| Roll back the latest migration (with confirmation)     | `npx prisma-true-rollback 20240101120000_add_users`             |
+| Roll back without the interactive prompt               | `npx prisma-true-rollback 20240101120000_add_users --yes`       |
+| Roll back in an ambiguous environment, with verbose logs| `npx prisma-true-rollback 20240101120000_add_users --override --verbose` |
+| Check the installed version                            | `npx prisma-true-rollback --version`                            |
+
+### Safeguards & exit codes
+
+- Refuses to run when a **production indicator** is detected (`NODE_ENV=production` or a production-designated connection target).
+- Blocks **ambiguous** environments unless `--override` is supplied.
+- Requires interactive confirmation unless `--yes` is passed; declining (or a 60s timeout) exits cleanly with **no changes**.
+- Exit code `0` on success or a safe no-op (dry-run, declined confirmation); non-zero on validation, configuration, execution, or recovery outcomes.
+
+## Development
+
+Clone the repo and install dependencies, then use the npm scripts below:
+
+| Script                | Command             | Description                                              |
+| --------------------- | ------------------- | -------------------------------------------------------- |
+| Build                 | `npm run build`     | Compile TypeScript to `dist/`.                           |
+| Type-check            | `npm run typecheck` | Run the TypeScript compiler with no emit.                |
+| Test                  | `npm test`          | Run the full test suite once (Vitest).                   |
+| Test (watch)          | `npm run test:watch`| Run the test suite in watch mode.                        |
+| Lint                  | `npm run lint`      | Lint the TypeScript sources with ESLint.                 |
+
+The test suite includes unit tests, integration tests (real SQLite, a stubbed Prisma engine child process, and an end-to-end entrypoint run), and **19 correctness properties** validated with property-based testing (`fast-check`). The PostgreSQL and MySQL integration tests are skipped unless a reachable server URL is provided via `TEST_POSTGRES_URL` / `TEST_MYSQL_URL`.
+
 ## Supported databases
 
 PostgreSQL, MySQL, and SQLite. (MySQL lacks transactional DDL, so the CLI guards against non-atomic reversion on that engine.)
 
-## Status
+## Specification
 
-🚧 Early development. The specification (requirements, design, and implementation plan) lives under [`.kiro/specs/prisma-true-rollback-cli/`](.kiro/specs/prisma-true-rollback-cli/).
+The full specification — requirements, technical design, and the implementation plan — lives under [`.kiro/specs/prisma-true-rollback-cli/`](.kiro/specs/prisma-true-rollback-cli/).
 
 ## Tech stack
 
 TypeScript · Node.js · invoked via `npx` · property-based testing with `fast-check`.
+
+## Author & motivation
+
+Authored by **Victor Lis Bronzo**. I built this project to explore and test the potential of **Kiro** — the AI-powered development assistant — driving a complete spec-to-implementation workflow: from requirements and technical design through a fully tested, working CLI.
