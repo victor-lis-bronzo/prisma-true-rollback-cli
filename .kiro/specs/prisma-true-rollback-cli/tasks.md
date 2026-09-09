@@ -10,7 +10,7 @@ The implementation is incremental and test-driven. It starts with project scaffo
 
 ## Tasks
 
-- [ ] 1. Project scaffolding and test harness
+- [x] 1. Project scaffolding and test harness
   - Create `package.json` with the `bin` field mapping the CLI name to `dist/index.js` (npx entrypoint), and scripts for build/test.
   - Add TypeScript config (`tsconfig.json`) targeting Node.js with strict mode.
   - Install and configure the test runner and `fast-check` for property-based testing (≥100 iterations default).
@@ -18,14 +18,14 @@ The implementation is incremental and test-driven. It starts with project scaffo
   - Establish the `src/` layout for components and a `test/` layout for unit/property/integration tests.
   - _Requirements: 1.1 (invocation surface), 7 (project runs via npx)_
 
-- [ ] 2. Define shared data models, types, and error classes
-  - [ ] 2.1 Define core data model types
+- [x] 2. Define shared data models, types, and error classes
+  - [x] 2.1 Define core data model types
     - `DbEngine`, `ResolvedConfig`, `TargetMigration`, `MigrationRecord`.
     - `FileEntry`, `FolderSnapshot`, `PreOperationSnapshot`.
     - `StepName`, `StepResult`, `OperationOutcome`, `RecoveryReport`, `UnrestoredElement`, `GuardDecision`, `EnvClassification`, `DeleteOutcome`, `EngineResult`, `ArgParseResult`, `ParsedArgs`.
     - _Requirements: 4, 5, 6, 7, 8 (shared model surface)_
 
-  - [ ] 2.2 Define typed error classes
+  - [x] 2.2 Define typed error classes
     - `ConfigError`, `UnsupportedEngineError`, `ReverseSqlError`, `TransactionAbortedError` (carries failing statement + reason), `UnsupportedDdlError`, `SnapshotError`, `FsDeleteError`, `RestoreError`, `StatementError`.
     - Ensure each error carries the fields needed for exit-code mapping and messaging.
     - _Requirements: 3.2, 3.3, 4.5, 4.6, 5.4, 6.2, 7.2, 7.5_
@@ -35,11 +35,11 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - _Requirements: 4.5_
 
 - [ ] 3. Implement Logger / Redactor
-  - [ ] 3.1 Implement the Redactor
+  - [x] 3.1 Implement the Redactor
     - Replace the DATABASE_URL value, username, password, host, and port with a fixed redaction placeholder for arbitrary carrier text.
     - _Requirements: 8.4, 8.5_
 
-  - [ ] 3.2 Implement the Logger routing all output through the Redactor
+  - [~] 3.2 Implement the Logger routing all output through the Redactor
     - Implement `step` (R8.1 "Step X of N: name"), `stepDone` (R8.2), `stepFailed`→stderr (R8.3), `info`, `warn` (R2.3), `verbose` (R8.4, only when verbose), `error`→stderr.
     - Every method passes its message through `Redactor.redact` before writing so redaction cannot be bypassed.
     - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5, 2.3_
@@ -56,8 +56,8 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - Verify step start/success message text and ordering ("Step X of N: <name>", success indicator).
     - _Requirements: 8.1, 8.2_
 
-- [ ] 4. Implement CLI Argument Parser
-  - [ ] 4.1 Implement `ArgParser.parse`
+- [x] 4. Implement CLI Argument Parser
+  - [x] 4.1 Implement `ArgParser.parse`
     - Parse `argv`; recognize flags `--version/-v`, `--dry-run`, `--yes/-y`, `--override`, `--verbose`.
     - Enforce arity: exactly one positional migration name → `run`; zero positional → `error` (missing arg); >1 positional → `error` (only one accepted); `--version` short-circuits to `version`.
     - _Requirements: 1.1, 1.2, 1.3, 1.7, 2.2 (override flag), 2.6 (yes flag), 3.4 (dry-run flag), 8.4 (verbose flag)_
@@ -74,8 +74,8 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - Single valid name → `run` (R1.1); `--version` → `version` kind, exit 0 (R1.7); flag combinations parsed correctly.
     - _Requirements: 1.1, 1.7_
 
-- [ ] 5. Implement Config Resolver
-  - [ ] 5.1 Implement `ConfigResolver.resolve`
+- [x] 5. Implement Config Resolver
+  - [x] 5.1 Implement `ConfigResolver.resolve`
     - Read the `datasource` block from `schema.prisma` and `DATABASE_URL`; produce `ResolvedConfig` (engine, connectionUrl, migrationsDir, schemaPath, connectionTargetDesignation).
     - Throw `ConfigError` when `schema.prisma` is missing or `DATABASE_URL` is unset/empty/whitespace-only, identifying the missing source.
     - Throw `UnsupportedEngineError` when the engine is not postgresql/mysql/sqlite, naming the engine and listing supported engines.
@@ -93,8 +93,8 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - Resolve engine + connection target from a valid `schema.prisma` + `DATABASE_URL` (R7.1).
     - _Requirements: 7.1_
 
-- [ ] 6. Implement Environment Guard
-  - [ ] 6.1 Implement `EnvironmentGuard.classify` and `evaluate`
+- [x] 6. Implement Environment Guard
+  - [x] 6.1 Implement `EnvironmentGuard.classify` and `evaluate`
     - Classify: `NODE_ENV === 'production'` OR production connection designation ⇒ `production`; missing/unrecognized NODE_ENV AND absent designation ⇒ `ambiguous`; otherwise `development`.
     - Evaluate: `production` blocks regardless of override (R2.1); `ambiguous` blocks unless override supplied (R2.2); `development` allows.
     - _Requirements: 2.1, 2.2_
@@ -108,19 +108,19 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - **Validates: Requirements 2.2**
 
 - [ ] 7. Implement DB driver abstraction and per-engine drivers
-  - [ ] 7.1 Define `DbDriver`, `Connection`, and `Tx` interfaces
+  - [x] 7.1 Define `DbDriver`, `Connection`, and `Tx` interfaces
     - Include `supportsTransactionalDDL` capability, `connect(url, timeoutMs)`, `redactedTarget(url)`, `transaction`, `close`, and `Tx` statement/record operations.
     - _Requirements: 4.1, 4.6, 7.3, 7.4, 7.6_
 
-  - [ ] 7.2 Implement PostgreSQL driver
+  - [~] 7.2 Implement PostgreSQL driver
     - `supportsTransactionalDDL = true`; 10s connect timeout; `redactedTarget` returns host only with credentials stripped; transaction wrapper commits on resolve / rolls back on throw; `Tx` operations for the tracking table.
     - _Requirements: 4.1, 7.3, 7.4, 7.6_
 
-  - [ ] 7.3 Implement SQLite driver
+  - [~] 7.3 Implement SQLite driver
     - `supportsTransactionalDDL = true`; connect/close/transaction/`Tx` semantics as above.
     - _Requirements: 4.1, 7.3, 7.4, 7.6_
 
-  - [ ] 7.4 Implement MySQL driver
+  - [~] 7.4 Implement MySQL driver
     - `supportsTransactionalDDL = false` (implicit DDL commits); connect/close/transaction/`Tx` semantics as above.
     - _Requirements: 4.1, 4.6, 7.3, 7.4, 7.6_
 
@@ -133,7 +133,7 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - _Requirements: 4.1, 7.3, 7.4, 7.6_
 
 - [ ] 8. Implement Prisma Engine Runner
-  - [ ] 8.1 Implement `PrismaEngineRunner.runDiff`
+  - [~] 8.1 Implement `PrismaEngineRunner.runDiff`
     - Invoke the Prisma engine (`prisma migrate diff`) as a child process with a 30s timeout to produce reverse-direction SQL.
     - Return `ok` (sql + command), `nonzero` (exitCode + full stderr), `timeout` (kill child), or `notFound` (ENOENT/binary missing).
     - _Requirements: 3.1, 3.2, 3.5, 3.6_
@@ -151,7 +151,7 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - _Requirements: 3.1_
 
 - [ ] 9. Implement Reverse-SQL Generator
-  - [ ] 9.1 Implement `ReverseSqlGenerator.generate` and `isEffectivelyEmpty`
+  - [~] 9.1 Implement `ReverseSqlGenerator.generate` and `isEffectivelyEmpty`
     - Post-process engine output into `ReverseSql` (`raw` + parsed `statements`).
     - `isEffectivelyEmpty` returns true iff the script has zero executable statements (only whitespace + SQL comments); such scripts raise `ReverseSqlError` (R3.3).
     - Provide the `raw` output for dry-run display.
@@ -162,13 +162,13 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - **Validates: Requirements 3.3**
 
 - [ ] 10. Implement Transactional Executor
-  - [ ] 10.1 Implement `TransactionalExecutor.applyReversal`
+  - [~] 10.1 Implement `TransactionalExecutor.applyReversal`
     - Guard first: if the driver reports no transactional-DDL support, abort before executing any reverse SQL (throw `UnsupportedDdlError`) (R4.6).
     - Otherwise open a single transaction: exec each reverse statement, then delete the target tracking record; commit on success (R4.1, R4.2, R4.3).
     - On any statement failure, roll back so DB + tracking match pre-transaction state, then throw `TransactionAbortedError` with the failing statement + reason (R4.4, R4.5).
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 4.6_
 
-  - [ ] 10.2 Implement `TransactionalExecutor.restoreDatabase` (recovery path)
+  - [~] 10.2 Implement `TransactionalExecutor.restoreDatabase` (recovery path)
     - Re-apply the original migration's forward statements and re-insert the saved tracking record within a single transaction (used by recovery, R6.4).
     - _Requirements: 6.4_
 
@@ -185,7 +185,7 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - _Requirements: 4.1, 4.2, 4.3_
 
 - [ ] 11. Implement Filesystem Snapshot / Cleanup Manager
-  - [ ] 11.1 Implement `FsSnapshotManager.capture`, `delete`, `restore`, `equals`
+  - [~] 11.1 Implement `FsSnapshotManager.capture`, `delete`, `restore`, `equals`
     - `capture`: recursively read all files (relative POSIX path + bytes + mode), sorted for deterministic comparison (read-only) (R5.1, R6.1).
     - `delete`: recursive removal; missing folder → `alreadyAbsent` no-op that continues (R5.2, R5.3); throw `FsDeleteError` on permission/other failure (R5.4).
     - `restore`: recreate folder byte-for-byte from snapshot (R6.5).
@@ -201,7 +201,7 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - **Validates: Requirements 5.2, 5.3**
 
 - [ ] 12. Implement Compensating-Recovery Coordinator
-  - [ ] 12.1 Implement `RecoveryCoordinator.recover`
+  - [~] 12.1 Implement `RecoveryCoordinator.recover`
     - Restore DB via `restoreDatabase` (re-apply forward statements + re-insert tracking record) and restore the Migration_Folder from the snapshot (R6.4, R6.5).
     - Verify via `equals` and DB re-read: full match → `RecoveryReport{fullyRestored:true}` (R6.6); any mismatch → `fullyRestored:false` with `unrestored` elements and per-element manual steps (R6.7).
     - _Requirements: 6.4, 6.5, 6.6, 6.7_
@@ -215,11 +215,11 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - _Requirements: 6.6_
 
 - [ ] 13. Implement Rollback Orchestrator
-  - [ ] 13.1 Implement target validation
+  - [~] 13.1 Implement target validation
     - Validate the Target_Migration: unknown folder (R1.4), no tracking record (R1.5), and eligibility that only the most recently applied migration may be rolled back (R1.6). Each failure → exit 1, no changes.
     - _Requirements: 1.4, 1.5, 1.6_
 
-  - [ ] 13.2 Implement `RollbackOrchestrator.run` step sequencing and safeguards
+  - [~] 13.2 Implement `RollbackOrchestrator.run` step sequencing and safeguards
     - Enforce the canonical step order (Step 1 generate → Step 2 snapshot → Step 3 transaction → Step 4 delete → Step 5 confirm) with step messages (R8.1, R8.2).
     - Display the destructive/irreversible warning and Target_Migration name before any change (R2.3); enforce interactive confirmation with a 60s timeout, declining/timeout → exit 0 no changes (R2.4, R2.5) unless `--yes` (R2.6).
     - Handle dry-run: print complete Reverse_SQL and exit 0 with zero changes (R3.4).
@@ -228,7 +228,7 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - On success: confirm folder deletion/full rollback message and exit 0 (R5.5, R5.6).
     - _Requirements: 2.3, 2.4, 2.5, 2.6, 3.4, 5.5, 5.6, 6.1, 6.2, 6.3, 8.1, 8.2_
 
-  - [ ] 13.3 Implement exit-code mapping and connection-close guarantee
+  - [~] 13.3 Implement exit-code mapping and connection-close guarantee
     - Wrap the operation in `try/finally`; close any opened connection on every path (R7.6).
     - Map outcomes to exit codes: 0 (success/safe abort — version, decline, dry-run), 1 (validation/config/recovery), non-zero (execution failures) per the design's exit-code summary.
     - _Requirements: 4.3, 5.6, 6.6, 6.7, 7.6_
@@ -253,11 +253,11 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - Unknown folder (R1.4), no tracking record (R1.5); destructive warning before changes (R2.3), interactive gate (R2.4), decline/60s timeout → exit 0 (R2.5), `--yes` skips prompt (R2.6); snapshot-before-delete ordering (R5.1), recovery-on-failure wiring (R5.4), success message (R5.5), exit 0 (R5.6); snapshot precedes first destructive action (R6.1), capture-failure abort (R6.2), recovery initiation (R6.3).
     - _Requirements: 1.4, 1.5, 2.3, 2.4, 2.5, 2.6, 5.1, 5.4, 5.5, 5.6, 6.1, 6.2, 6.3_
 
-- [ ] 14. Checkpoint — ensure all tests pass
+- [~] 14. Checkpoint — ensure all tests pass
   - Ensure all unit, property, and integration tests pass, ask the user if questions arise.
 
 - [ ] 15. Wire the npx entrypoint end-to-end
-  - [ ] 15.1 Implement `src/index.ts` entrypoint
+  - [~] 15.1 Implement `src/index.ts` entrypoint
     - Parse argv via `ArgParser`; handle `version` (print version, exit 0, R1.7) and arg `error` kinds (exit 1) before any operation (R1.1, R1.2, R1.3).
     - Run the Environment Guard, resolve config, select the driver by engine, connect (10s timeout, R7.3/R7.4), and delegate to `RollbackOrchestrator.run`, returning its exit code as the process exit code.
     - Ensure the bin shebang and `package.json` `bin` mapping make the CLI runnable via `npx`.
@@ -267,7 +267,7 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - Drive representative flows through the entrypoint (e.g., `--version`, missing-arg error, dry-run) verifying exit codes and that no DB/FS changes occur on non-destructive paths (NOT a property test).
     - _Requirements: 1.7, 1.2, 3.4_
 
-- [ ] 16. Final checkpoint — ensure all tests pass
+- [~] 16. Final checkpoint — ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 ## Notes

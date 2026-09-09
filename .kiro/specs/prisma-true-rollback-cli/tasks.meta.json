@@ -1,0 +1,281 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1. Project scaffolding and test harness": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952353899
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952362183
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952490731
+      }
+    ],
+    "2.1 Define core data model types": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952353904
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952494803
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952619499
+      }
+    ],
+    "2.2 Define typed error classes": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952353911
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952495449
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952620181
+      }
+    ],
+    "3.1 Implement the Redactor": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952353915
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952625844
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952749623
+      }
+    ],
+    "3.2 Implement the Logger routing all output through the Redactor": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952353920
+      }
+    ],
+    "4.1 Implement `ArgParser.parse`": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952353925
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952626803
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952747265
+      }
+    ],
+    "5.1 Implement `ConfigResolver.resolve`": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952353929
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952628191
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952750573
+      }
+    ],
+    "6.1 Implement `EnvironmentGuard.classify` and `evaluate`": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952353933
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952629650
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952748667
+      }
+    ],
+    "7.1 Define `DbDriver`, `Connection`, and `Tx` interfaces": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952353937
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952630512
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952745873
+      }
+    ],
+    "7.2 Implement PostgreSQL driver": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952353941
+      }
+    ],
+    "7.3 Implement SQLite driver": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952353946
+      }
+    ],
+    "7.4 Implement MySQL driver": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952353950
+      }
+    ],
+    "8.1 Implement `PrismaEngineRunner.runDiff`": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952353955
+      }
+    ],
+    "9.1 Implement `ReverseSqlGenerator.generate` and `isEffectivelyEmpty`": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952353959
+      }
+    ],
+    "10.1 Implement `TransactionalExecutor.applyReversal`": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952353963
+      }
+    ],
+    "10.2 Implement `TransactionalExecutor.restoreDatabase` (recovery path)": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952353967
+      }
+    ],
+    "11.1 Implement `FsSnapshotManager.capture`, `delete`, `restore`, `equals`": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952353971
+      }
+    ],
+    "12.1 Implement `RecoveryCoordinator.recover`": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952353979
+      }
+    ],
+    "13.1 Implement target validation": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952353983
+      }
+    ],
+    "13.2 Implement `RollbackOrchestrator.run` step sequencing and safeguards": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952353987
+      }
+    ],
+    "13.3 Implement exit-code mapping and connection-close guarantee": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952353991
+      }
+    ],
+    "14. Checkpoint — ensure all tests pass": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952353996
+      }
+    ],
+    "15.1 Implement `src/index.ts` entrypoint": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952354000
+      }
+    ],
+    "16. Final checkpoint — ensure all tests pass": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952354005
+      }
+    ],
+    "2. Define shared data models, types, and error classes": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952620185
+      }
+    ],
+    "4. Implement CLI Argument Parser": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952747269
+      }
+    ],
+    "6. Implement Environment Guard": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952748671
+      }
+    ],
+    "5. Implement Config Resolver": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788952750578
+      }
+    ]
+  }
+}
