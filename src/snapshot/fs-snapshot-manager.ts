@@ -167,7 +167,15 @@ export class FsSnapshotManager {
     }
 
     try {
-      await fsp.rm(folderPath, { recursive: true, force: false });
+      // `maxRetries`/`retryDelay` make recursive removal robust on Windows,
+      // where `rm` can transiently fail with EBUSY/ENOTEMPTY/EPERM while the OS
+      // releases directory handles just freed by removing their contents.
+      await fsp.rm(folderPath, {
+        recursive: true,
+        force: false,
+        maxRetries: 5,
+        retryDelay: 50,
+      });
       return { kind: 'deleted' };
     } catch (err) {
       const code = errorCode(err);
@@ -196,7 +204,12 @@ export class FsSnapshotManager {
   async restore(folderPath: string, snapshot: FolderSnapshot): Promise<void> {
     try {
       // Clear any existing content so the result matches the snapshot exactly.
-      await fsp.rm(folderPath, { recursive: true, force: true });
+      await fsp.rm(folderPath, {
+        recursive: true,
+        force: true,
+        maxRetries: 5,
+        retryDelay: 50,
+      });
       await fsp.mkdir(folderPath, { recursive: true });
 
       for (const file of snapshot.files) {
