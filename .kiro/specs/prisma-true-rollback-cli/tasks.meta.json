@@ -1,5 +1,22 @@
 {
-  "pbtResults": {},
+  "pbtResults": {
+    "4.2 Write property test for missing migration-name argument": {
+      "status": "passed",
+      "lastRunTimestamp": 1788955193808
+    },
+    "3.4 Write property test for step-failure reporting": {
+      "status": "passed",
+      "lastRunTimestamp": 1788955193931
+    },
+    "4.3 Write property test for multiple migration-name arguments": {
+      "status": "passed",
+      "lastRunTimestamp": 1788955202895
+    },
+    "5.2 Write property test for missing configuration sources": {
+      "status": "passed",
+      "lastRunTimestamp": 1788955362098
+    }
+  },
   "executionHistory": {
     "1. Project scaffolding and test harness": [
       {
@@ -483,6 +500,126 @@
         "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
         "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
         "timestamp": 1788953935273
+      }
+    ],
+    "3.3 Write property test for credential redaction": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788955129106
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788955255533
+      }
+    ],
+    "3.4 Write property test for step-failure reporting": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788955130495
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788955256489
+      }
+    ],
+    "4.2 Write property test for missing migration-name argument": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788955131465
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788955260055
+      }
+    ],
+    "4.3 Write property test for multiple migration-name arguments": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788955132846
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788955259337
+      }
+    ],
+    "4.4 Write unit tests for arg dispatch": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788955133698
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788955257939
+      }
+    ],
+    "2.3 Write unit tests for error classes": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788955264001
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788955393128
+      }
+    ],
+    "3.5 Write unit tests for step-message formatting": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788955265398
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788955396331
+      }
+    ],
+    "5.2 Write property test for missing configuration sources": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788955266351
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788955395476
+      }
+    ],
+    "5.3 Write property test for unsupported engine rejection": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788955267740
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788955391730
+      }
+    ],
+    "5.4 Write unit test for successful resolution": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788955268577
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788955394083
       }
     ]
   }

@@ -30,7 +30,7 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - Ensure each error carries the fields needed for exit-code mapping and messaging.
     - _Requirements: 3.2, 3.3, 4.5, 4.6, 5.4, 6.2, 7.2, 7.5_
 
-  - [ ]* 2.3 Write unit tests for error classes
+  - [x]* 2.3 Write unit tests for error classes
     - Verify each error preserves its detail fields (e.g., `TransactionAbortedError` retains the failing statement text and reason).
     - _Requirements: 4.5_
 
@@ -44,15 +44,15 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - Every method passes its message through `Redactor.redact` before writing so redaction cannot be bypassed.
     - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5, 2.3_
 
-  - [ ]* 3.3 Write property test for credential redaction
+  - [x]* 3.3 Write property test for credential redaction
     - **Property 4: Credentials never appear in output** — for any credential set and any carrier message routed through every Logger method (including verbose), no raw credential value appears and the placeholder is present.
     - **Validates: Requirements 8.4, 8.5**
 
-  - [ ]* 3.4 Write property test for step-failure reporting
+  - [x]* 3.4 Write property test for step-failure reporting
     - **Property 19: Step failures are reported with step name and detail** — for any failing step, `stepFailed` writes to stderr a message identifying the step by name, including the error detail, and indicating the operation was aborted.
     - **Validates: Requirements 8.3**
 
-  - [ ]* 3.5 Write unit tests for step-message formatting
+  - [x]* 3.5 Write unit tests for step-message formatting
     - Verify step start/success message text and ordering ("Step X of N: <name>", success indicator).
     - _Requirements: 8.1, 8.2_
 
@@ -62,15 +62,15 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - Enforce arity: exactly one positional migration name → `run`; zero positional → `error` (missing arg); >1 positional → `error` (only one accepted); `--version` short-circuits to `version`.
     - _Requirements: 1.1, 1.2, 1.3, 1.7, 2.2 (override flag), 2.6 (yes flag), 3.4 (dry-run flag), 8.4 (verbose flag)_
 
-  - [ ]* 4.2 Write property test for missing migration-name argument
+  - [x]* 4.2 Write property test for missing migration-name argument
     - **Property 16: Missing migration-name argument is rejected** — for any argv containing no positional name (flags only), parsing yields an error with exit code 1 and a missing-argument message.
     - **Validates: Requirements 1.2**
 
-  - [ ]* 4.3 Write property test for multiple migration-name arguments
+  - [x]* 4.3 Write property test for multiple migration-name arguments
     - **Property 17: Multiple migration-name arguments are rejected** — for any argv containing two or more positional names, parsing yields an error with exit code 1 and a one-name-only message.
     - **Validates: Requirements 1.3**
 
-  - [ ]* 4.4 Write unit tests for arg dispatch
+  - [x]* 4.4 Write unit tests for arg dispatch
     - Single valid name → `run` (R1.1); `--version` → `version` kind, exit 0 (R1.7); flag combinations parsed correctly.
     - _Requirements: 1.1, 1.7_
 
@@ -81,15 +81,15 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - Throw `UnsupportedEngineError` when the engine is not postgresql/mysql/sqlite, naming the engine and listing supported engines.
     - _Requirements: 7.1, 7.2, 7.5_
 
-  - [ ]* 5.2 Write property test for missing configuration sources
+  - [x]* 5.2 Write property test for missing configuration sources
     - **Property 15: Missing configuration sources are identified** — for any config where `schema.prisma` is absent or `DATABASE_URL` is unset/empty (including whitespace-only), resolve fails with exit code 1 and identifies the specific missing source.
     - **Validates: Requirements 7.2**
 
-  - [ ]* 5.3 Write property test for unsupported engine rejection
+  - [x]* 5.3 Write property test for unsupported engine rejection
     - **Property 14: Unsupported engines are rejected** — for any engine identifier not in {postgresql, mysql, sqlite}, resolve fails with exit code 1 and produces a message naming the engine and listing supported engines.
     - **Validates: Requirements 7.5**
 
-  - [ ]* 5.4 Write unit test for successful resolution
+  - [x]* 5.4 Write unit test for successful resolution
     - Resolve engine + connection target from a valid `schema.prisma` + `DATABASE_URL` (R7.1).
     - _Requirements: 7.1_
 
