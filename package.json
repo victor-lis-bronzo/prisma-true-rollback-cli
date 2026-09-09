@@ -18,7 +18,9 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run typecheck && npm run test"
   },
   "keywords": [
     "prisma",
@@ -42,5 +44,17 @@
     "fast-check": "^3.19.0",
     "typescript": "^5.4.5",
     "vitest": "^1.6.0"
+  },
+  "author": "Victor Lis Bronzo",
+  "homepage": "https://github.com/victor-lis-bronzo/prisma-true-rollback-cli#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/victor-lis-bronzo/prisma-true-rollback-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/victor-lis-bronzo/prisma-true-rollback-cli/issues"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
