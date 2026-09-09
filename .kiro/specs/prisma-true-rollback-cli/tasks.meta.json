@@ -358,6 +358,16 @@
         "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
         "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
         "timestamp": 1788952353996
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788953945590
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788953971911
       }
     ],
     "15.1 Implement `src/index.ts` entrypoint": [
@@ -365,6 +375,16 @@
         "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
         "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
         "timestamp": 1788952354000
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788953746661
+      },
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788953935268
       }
     ],
     "16. Final checkpoint — ensure all tests pass": [
@@ -456,6 +476,13 @@
         "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
         "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
         "timestamp": 1788953735604
+      }
+    ],
+    "15. Wire the npx entrypoint end-to-end": [
+      {
+        "executionId": "c4582603-ff0a-4da4-ac45-3ffed22ae1c3",
+        "chatSessionId": "bb79badd-f56c-44d2-a9b7-1291b6e36466",
+        "timestamp": 1788953935273
       }
     ]
   }

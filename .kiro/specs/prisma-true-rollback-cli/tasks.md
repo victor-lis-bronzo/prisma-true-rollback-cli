@@ -253,11 +253,11 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - Unknown folder (R1.4), no tracking record (R1.5); destructive warning before changes (R2.3), interactive gate (R2.4), decline/60s timeout → exit 0 (R2.5), `--yes` skips prompt (R2.6); snapshot-before-delete ordering (R5.1), recovery-on-failure wiring (R5.4), success message (R5.5), exit 0 (R5.6); snapshot precedes first destructive action (R6.1), capture-failure abort (R6.2), recovery initiation (R6.3).
     - _Requirements: 1.4, 1.5, 2.3, 2.4, 2.5, 2.6, 5.1, 5.4, 5.5, 5.6, 6.1, 6.2, 6.3_
 
-- [~] 14. Checkpoint — ensure all tests pass
+- [x] 14. Checkpoint — ensure all tests pass
   - Ensure all unit, property, and integration tests pass, ask the user if questions arise.
 
-- [ ] 15. Wire the npx entrypoint end-to-end
-  - [~] 15.1 Implement `src/index.ts` entrypoint
+- [x] 15. Wire the npx entrypoint end-to-end
+  - [x] 15.1 Implement `src/index.ts` entrypoint
     - Parse argv via `ArgParser`; handle `version` (print version, exit 0, R1.7) and arg `error` kinds (exit 1) before any operation (R1.1, R1.2, R1.3).
     - Run the Environment Guard, resolve config, select the driver by engine, connect (10s timeout, R7.3/R7.4), and delegate to `RollbackOrchestrator.run`, returning its exit code as the process exit code.
     - Ensure the bin shebang and `package.json` `bin` mapping make the CLI runnable via `npx`.
