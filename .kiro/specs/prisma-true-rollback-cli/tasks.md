@@ -172,15 +172,15 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - Re-apply the original migration's forward statements and re-insert the saved tracking record within a single transaction (used by recovery, R6.4).
     - _Requirements: 6.4_
 
-  - [ ]* 10.3 Write property test for failing-statement reporting
+  - [x]* 10.3 Write property test for failing-statement reporting
     - **Property 11: Failing statement is reported on transaction abort** — for any transaction where a statement fails, terminate non-zero with a message including the failing statement text and the underlying reason.
     - **Validates: Requirements 4.5**
 
-  - [ ]* 10.4 Write property test for non-transactional-DDL guard
+  - [x]* 10.4 Write property test for non-transactional-DDL guard
     - **Property 12: Non-transactional-DDL engines are guarded before any DDL** — for any engine reporting no transactional-DDL support, abort before executing any reverse SQL, terminate non-zero, leave DB + tracking unchanged (zero reverse statements executed). Use a fake driver/model.
     - **Validates: Requirements 4.6**
 
-  - [ ]* 10.5 Write unit tests for transaction structure
+  - [x]* 10.5 Write unit tests for transaction structure
     - Both reverse SQL and tracking-record delete run in one transaction, delete after reverse (R4.1, R4.2); successful commit maps to exit 0 (R4.3).
     - _Requirements: 4.1, 4.2, 4.3_
 
@@ -192,11 +192,11 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - `equals`: compare a folder against a snapshot for recovery verification (R6.6, R6.7).
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 6.1, 6.5, 6.6, 6.7_
 
-  - [ ]* 11.2 Write property test for snapshot round-trip identity
+  - [x]* 11.2 Write property test for snapshot round-trip identity
     - **Property 2: Snapshot round-trip is a byte-for-byte identity** — for any folder contents, capture then restore (including after delete) reproduces every file's relative path, bytes, and mode identically. Generate arbitrary nested folder trees.
     - **Validates: Requirements 5.1, 6.5**
 
-  - [ ]* 11.3 Write property test for delete semantics and idempotence
+  - [x]* 11.3 Write property test for delete semantics and idempotence
     - **Property 3: Delete semantics and idempotence** — for any folder, delete removes it and all files/subdirectories entirely; for any nonexistent path, delete is a no-op reported as already-absent; deleting twice equals deleting once.
     - **Validates: Requirements 5.2, 5.3**
 
