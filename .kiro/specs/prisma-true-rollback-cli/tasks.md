@@ -99,11 +99,11 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - Evaluate: `production` blocks regardless of override (R2.1); `ambiguous` blocks unless override supplied (R2.2); `development` allows.
     - _Requirements: 2.1, 2.2_
 
-  - [ ]* 6.2 Write property test for production always blocking
+  - [x]* 6.2 Write property test for production always blocking
     - **Property 6: Production indicators always block** — for any invocation with a Production_Indicator present, the guard blocks with a non-zero exit code and no changes, regardless of override.
     - **Validates: Requirements 2.1**
 
-  - [ ]* 6.3 Write property test for ambiguous-environment override
+  - [x]* 6.3 Write property test for ambiguous-environment override
     - **Property 7: Ambiguous environments require an override** — for any ambiguous classification, guard blocks (non-zero, no changes) without override and permits proceeding with override.
     - **Validates: Requirements 2.2**
 
@@ -138,11 +138,11 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - Return `ok` (sql + command), `nonzero` (exitCode + full stderr), `timeout` (kill child), or `notFound` (ENOENT/binary missing).
     - _Requirements: 3.1, 3.2, 3.5, 3.6_
 
-  - [ ]* 8.2 Write property test for engine failure output surfacing
+  - [x]* 8.2 Write property test for engine failure output surfacing
     - **Property 10: Engine failure output is surfaced** — for any non-zero engine exit with arbitrary error output, the result is a failure carrying the complete engine error output (mapped to non-zero exit, no changes).
     - **Validates: Requirements 3.2**
 
-  - [ ]* 8.3 Write unit tests for engine timeout and binary-not-found
+  - [x]* 8.3 Write unit tests for engine timeout and binary-not-found
     - 30s timeout kills the child and returns `timeout` (R3.5); ENOENT returns `notFound` (R3.6).
     - _Requirements: 3.5, 3.6_
 
@@ -157,7 +157,7 @@ The implementation is incremental and test-driven. It starts with project scaffo
     - Provide the `raw` output for dry-run display.
     - _Requirements: 3.3, 3.4_
 
-  - [ ]* 9.2 Write property test for empty reverse-SQL detection
+  - [x]* 9.2 Write property test for empty reverse-SQL detection
     - **Property 8: Empty reverse-SQL detection** — for any script of only whitespace + SQL comments, classify as effectively empty (abort, non-zero); for any script with ≥1 executable statement, classify as non-empty.
     - **Validates: Requirements 3.3**
 
