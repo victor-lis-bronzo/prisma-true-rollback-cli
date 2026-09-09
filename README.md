@@ -81,6 +81,25 @@ The full specification — requirements, technical design, and the implementatio
 
 TypeScript · Node.js · invoked via `npx` · property-based testing with `fast-check`.
 
+## Publishing to npm
+
+This package is configured to be published to npm. The build is produced from TypeScript into `dist/`, and only `dist/` (plus `package.json`, `README.md`, and `LICENSE`) is included in the published tarball. A `prepare` script builds automatically on install/publish, and `prepublishOnly` runs the type-check and test suite as a safety gate.
+
+To publish (requires an npm account and being logged in):
+
+| Step                    | Command                        | Notes                                                            |
+| ----------------------- | ------------------------------ | ---------------------------------------------------------------- |
+| Log in to npm           | `npm login`                    | One-time per machine/session; authenticates your npm account.    |
+| Preview the tarball     | `npm pack --dry-run`           | Lists exactly what will be published without uploading anything. |
+| Bump the version        | `npm version patch\|minor\|major` | Updates `package.json` and creates a git tag.                    |
+| Publish                 | `npm publish`                  | Runs `prepublishOnly` (typecheck + tests) and `prepare` (build), then uploads. `publishConfig.access` is `public`. |
+
+After publishing, anyone can run it without cloning:
+
+```bash
+npx prisma-true-rollback <migration-name> --dry-run
+```
+
 ## Author & motivation
 
 Authored by **Victor Lis Bronzo**. I built this project to explore and test the potential of **Kiro** — the AI-powered development assistant — driving a complete spec-to-implementation workflow: from requirements and technical design through a fully tested, working CLI.
