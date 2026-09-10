@@ -71,12 +71,69 @@ const EXIT_OK = 0;
  */
 const DRIVER_FACTORIES: Record<DbEngine, () => Promise<DbDriver>> = {
   postgresql: async () =>
-    new (await import('./drivers/postgres-driver.js')).PostgresDriver(),
+    new (
+      await importDriverModule<typeof import('./drivers/postgres-driver.js')>(
+        'postgresql',
+        'pg',
+        './drivers/postgres-driver.js',
+      )
+    ).PostgresDriver(),
   mysql: async () =>
-    new (await import('./drivers/mysql-driver.js')).MysqlDriver(),
+    new (
+      await importDriverModule<typeof import('./drivers/mysql-driver.js')>(
+        'mysql',
+        'mysql2',
+        './drivers/mysql-driver.js',
+      )
+    ).MysqlDriver(),
   sqlite: async () =>
-    new (await import('./drivers/sqlite-driver.js')).SqliteDriver(),
+    new (
+      await importDriverModule<typeof import('./drivers/sqlite-driver.js')>(
+        'sqlite',
+        'better-sqlite3',
+        './drivers/sqlite-driver.js',
+      )
+    ).SqliteDriver(),
 };
+
+/** Node error codes emitted when a module (or its native binding) is missing. */
+const MODULE_MISSING_CODES = new Set([
+  'MODULE_NOT_FOUND',
+  'ERR_MODULE_NOT_FOUND',
+  'ERR_DLOPEN_FAILED',
+]);
+
+/**
+ * Dynamically import a driver module, translating a missing client library into
+ * a clear, actionable error.
+ *
+ * The database drivers (`pg`, `mysql2`, `better-sqlite3`) are declared as
+ * OPTIONAL dependencies: a user only needs the one client for the engine their
+ * project targets, and `better-sqlite3` in particular requires a native build
+ * toolchain that may be unavailable. If the client for the selected engine is
+ * not installed (or its native binding failed to build), the dynamic import
+ * fails with a module-not-found error — we catch it here and tell the user
+ * exactly which package to install, rather than surfacing a cryptic stack.
+ */
+async function importDriverModule<T>(
+  engine: DbEngine,
+  clientPackage: string,
+  modulePath: string,
+): Promise<T> {
+  try {
+    return (await import(modulePath)) as T;
+  } catch (err) {
+    const code = (err as { code?: string } | undefined)?.code;
+    if (code !== undefined && MODULE_MISSING_CODES.has(code)) {
+      throw new Error(
+        `The "${clientPackage}" client is required to roll back a ${engine} database, ` +
+          `but it is not installed. Install it in your project, e.g. "npm install ${clientPackage}", ` +
+          `then re-run the command.`,
+      );
+    }
+    throw err;
+  }
+}
 
 /**
  * Read the CLI version string from the packaged `package.json` (R1.7).

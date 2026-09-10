@@ -69,9 +69,27 @@ Clone the repo and install dependencies, then use the npm scripts below:
 
 The test suite includes unit tests, integration tests (real SQLite, a stubbed Prisma engine child process, and an end-to-end entrypoint run), and **19 correctness properties** validated with property-based testing (`fast-check`). The PostgreSQL and MySQL integration tests are skipped unless a reachable server URL is provided via `TEST_POSTGRES_URL` / `TEST_MYSQL_URL`.
 
-## Supported databases
+## Supported databases & drivers
 
 PostgreSQL, MySQL, and SQLite. (MySQL lacks transactional DDL, so the CLI guards against non-atomic reversion on that engine.)
+
+The database clients are declared as **optional dependencies**, because you only need the one that matches your project's engine:
+
+| Engine     | Client package   | Notes                                                                  |
+| ---------- | ---------------- | ---------------------------------------------------------------------- |
+| PostgreSQL | `pg`             | Pure JavaScript — no build toolchain required.                         |
+| MySQL      | `mysql2`         | Pure JavaScript — no build toolchain required.                         |
+| SQLite     | `better-sqlite3` | Native module — needs a C/C++ build toolchain if no prebuilt binary is available for your platform/Node version. |
+
+Because they are optional, a failure to install one (for example, `better-sqlite3` not finding a build toolchain on Windows) does **not** break installation of the CLI. Install only the client for your engine, e.g.:
+
+```bash
+npm install pg          # PostgreSQL
+npm install mysql2      # MySQL
+npm install better-sqlite3   # SQLite (requires a native build toolchain)
+```
+
+If you run the CLI against an engine whose client is not installed, it exits with a clear message telling you exactly which package to install — no cryptic native-build stack traces.
 
 ## Specification
 
