@@ -29,11 +29,6 @@
     "cli",
     "database"
   ],
-  "dependencies": {
-    "better-sqlite3": "^11.10.0",
-    "mysql2": "^3.24.4",
-    "pg": "^8.12.0"
-  },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.11",
     "@types/node": "^20.14.0",
@@ -56,5 +51,10 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "optionalDependencies": {
+    "better-sqlite3": "^11.10.0",
+    "mysql2": "^3.24.4",
+    "pg": "^8.12.0"
   }
 }
