@@ -69,6 +69,11 @@ export class ConfigResolver {
       );
     }
 
+    // --- Merge .env files (Prisma loads these automatically) ----------------
+    // Variables already present in the process environment always win.
+    const schemaDir = dirname(schemaPath);
+    env = this.withDotEnv(env, [join(schemaDir, '.env'), join(baseDir, '.env')]);
+
     // --- Resolve DATABASE_URL (R7.2) ----------------------------------------
     const rawUrl = env.DATABASE_URL;
     if (rawUrl === undefined || rawUrl.trim() === '') {
@@ -77,7 +82,7 @@ export class ConfigResolver {
         'The DATABASE_URL environment variable is unset or empty.'
       );
     }
-    const connectionUrl = rawUrl;
+    let connectionUrl = rawUrl;
 
     // --- Parse the datasource provider (engine) -----------------------------
     const schemaContents = readFileSync(schemaPath, 'utf8');
@@ -92,8 +97,13 @@ export class ConfigResolver {
     }
     const engine = provider as DbEngine;
 
+    // Prisma resolves relative SQLite paths against the schema directory, not
+    // the cwd; mirror that so the driver opens the same file Prisma does.
+    if (engine === 'sqlite') {
+      connectionUrl = this.absolutizeSqliteUrl(connectionUrl, schemaDir);
+    }
+
     // --- Derive paths -------------------------------------------------------
-    const schemaDir = dirname(schemaPath);
     const migrationsDir = join(schemaDir, 'migrations');
 
     // --- Optional connection target designation -----------------------------
@@ -105,10 +115,56 @@ export class ConfigResolver {
       migrationsDir,
       schemaPath,
     };
+    const shadow = env.SHADOW_DATABASE_URL?.trim();
+    if (shadow) {
+      config.shadowDatabaseUrl = shadow;
+    }
     if (connectionTargetDesignation !== undefined) {
       config.connectionTargetDesignation = connectionTargetDesignation;
     }
     return config;
+  }
+
+  /**
+   * Rewrite a relative SQLite URL (`file:./dev.db`, `file:dev.db`) to an absolute
+   * `file:` path based on `schemaDir`. Absolute paths, `file://` URLs and
+   * `:memory:` are returned unchanged.
+   */
+  private absolutizeSqliteUrl(url: string, schemaDir: string): string {
+    const trimmed = url.trim();
+    if (!trimmed.startsWith('file:') || trimmed.startsWith('file://')) {
+      return url;
+    }
+    const rest = trimmed.slice('file:'.length);
+    const queryIndex = rest.indexOf('?');
+    const pathPart = queryIndex === -1 ? rest : rest.slice(0, queryIndex);
+    const query = queryIndex === -1 ? '' : rest.slice(queryIndex);
+    if (pathPart === '' || pathPart === ':memory:' || isAbsolute(pathPart)) {
+      return url;
+    }
+    return `file:${resolve(schemaDir, pathPart)}${query}`;
+  }
+
+  /** Return `env` extended with variables from the first-found `.env` files (no overrides). */
+  private withDotEnv(env: NodeJS.ProcessEnv, files: readonly string[]): NodeJS.ProcessEnv {
+    const merged: NodeJS.ProcessEnv = { ...env };
+    for (const file of files) {
+      if (!existsSync(file)) {
+        continue;
+      }
+      let contents: string;
+      try {
+        contents = readFileSync(file, 'utf8');
+      } catch {
+        continue;
+      }
+      for (const [key, value] of parseDotEnv(contents)) {
+        if (merged[key] === undefined) {
+          merged[key] = value;
+        }
+      }
+    }
+    return merged;
   }
 
   /**
@@ -150,7 +206,7 @@ export class ConfigResolver {
    * `undefined` when no datasource block is present.
    */
   private extractDatasourceBlock(schemaContents: string): string | undefined {
-    const headerMatch = /\bdatasource\b[^\{]*\{/.exec(schemaContents);
+    const headerMatch = /\bdatasource\b[^{]*{/.exec(schemaContents);
     if (headerMatch === null) {
       return undefined;
     }
@@ -183,4 +239,31 @@ export class ConfigResolver {
     }
     return undefined;
   }
+}
+
+/** Minimal `.env` parser: `KEY=value`, optional `export`, quotes, `#` comments. */
+function parseDotEnv(contents: string): Array<[string, string]> {
+  const out: Array<[string, string]> = [];
+  for (const rawLine of contents.split(/\r?\n/)) {
+    const line = rawLine.trim();
+    if (line === '' || line.startsWith('#')) {
+      continue;
+    }
+    const m = /^(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)$/.exec(line);
+    if (m === null) {
+      continue;
+    }
+    let value = (m[2] ?? '').trim();
+    const quote = value[0];
+    if ((quote === '"' || quote === "'") && value.lastIndexOf(quote) > 0) {
+      value = value.slice(1, value.lastIndexOf(quote));
+    } else {
+      const hash = value.search(/\s#/);
+      if (hash !== -1) {
+        value = value.slice(0, hash).trim();
+      }
+    }
+    out.push([m[1] as string, value]);
+  }
+  return out;
 }

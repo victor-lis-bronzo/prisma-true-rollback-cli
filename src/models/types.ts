@@ -25,6 +25,8 @@ export interface ResolvedConfig {
   engine: DbEngine;
   /** In-memory only; never serialized or logged raw (R8.5). */
   connectionUrl: string;
+  /** Optional shadow database URL (`SHADOW_DATABASE_URL`) for `migrate diff --to-migrations`. */
+  shadowDatabaseUrl?: string;
   /** Absolute path to `prisma/migrations`. */
   migrationsDir: string;
   /** Absolute path to `schema.prisma`. */

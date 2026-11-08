@@ -32,7 +32,7 @@ npx prisma-true-rollback <migration-name> [flags]
 | Command / Flag        | Alias | Description                                                                                       |
 | --------------------- | ----- | ------------------------------------------------------------------------------------------------- |
 | `<migration-name>`    | —     | The target migration to roll back. Must be the most recently applied migration. Exactly one required. |
-| `--dry-run`           | —     | Print the generated reverse SQL and exit **without making any change** to the database or files.  |
+| `--dry-run`           | —     | Print the generated reverse SQL and exit **without making any change** to the database or files. Never prompts.  |
 | `--yes`               | `-y`  | Skip the interactive confirmation prompt (non-interactive mode).                                  |
 | `--override`          | —     | Authorize the rollback when the environment cannot be determined to be a development environment. |
 | `--verbose`           | —     | Print executed database statements and the invoked Prisma engine command (credentials redacted).  |
@@ -121,3 +121,9 @@ npx prisma-true-rollback <migration-name> --dry-run
 ## Author & motivation
 
 Authored by **Victor Lis Bronzo**. I built this project to explore and test the potential of **Kiro** — the AI-powered development assistant — driving a complete spec-to-implementation workflow: from requirements and technical design through a fully tested, working CLI.
+
+## Configuration notes
+
+- `DATABASE_URL` is read from the process environment, falling back to `prisma/.env` and `.env` (existing environment variables always win).
+- Relative SQLite URLs (`file:./dev.db`) are resolved against the `schema.prisma` directory, exactly like Prisma does.
+- Reverse SQL is produced with `prisma migrate diff --from-url <db> --to-migrations <migrations without the target>`. The project's local `prisma` install is used when present (otherwise `prisma` from `PATH`). For PostgreSQL/MySQL Prisma requires a shadow database: set `SHADOW_DATABASE_URL`.

@@ -488,6 +488,17 @@ describe('RollbackOrchestrator — interactive confirmation gate (R2.4/2.5/2.6)'
     expect(h.snapshotManager.deleteCount).toBe(0);
   });
 
+  it('--dry-run without --yes: never prompts, prints the SQL, exit 0, nothing destructive runs', async () => {
+    const h = makeHarness({ confirmResult: false });
+
+    const exit = await h.run(buildArgs({ dryRun: true, yes: false }));
+
+    expect(exit).toBe(EXIT_SUCCESS);
+    expect(h.confirmCalls).toBe(0);
+    expect(h.executor.applyReversalCount).toBe(0);
+    expect(h.snapshotManager.deleteCount).toBe(0);
+  });
+
   it('--yes: confirm is NEVER called and the operation proceeds to completion (R2.6)', async () => {
     const h = makeHarness();
 

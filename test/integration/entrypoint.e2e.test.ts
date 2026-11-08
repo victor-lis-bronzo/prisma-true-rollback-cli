@@ -43,7 +43,7 @@ const execFileAsync = promisify(execFile);
 // Repo root is two levels up from this file (test/integration/ → repo root).
 const HERE = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(HERE, '..', '..');
-const CLI_ENTRY = join(REPO_ROOT, 'dist', 'index.js');
+const CLI_ENTRY = join(REPO_ROOT, 'dist', 'cli.js');
 const PKG_VERSION = (
   JSON.parse(readFileSync(join(REPO_ROOT, 'package.json'), 'utf8')) as {
     version: string;

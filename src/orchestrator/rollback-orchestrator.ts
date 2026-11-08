@@ -282,6 +282,11 @@ export class RollbackOrchestrator {
     }
     const target: TargetMigration = validated.target;
 
+    // Dry-run changes nothing, so it needs neither the warning nor a prompt.
+    if (args.flags.dryRun) {
+      return await this.dryRun(cfg, target);
+    }
+
     // ── Pre-flight: destructive warning before any change (R2.3). ──────────
     this.logger.warn(
       `WARNING: This will PERMANENTLY and IRREVERSIBLY roll back migration ` +
@@ -315,13 +320,6 @@ export class RollbackOrchestrator {
       return EXIT_EXECUTION_FAILURE;
     }
 
-    // Dry-run: emit the complete Reverse_SQL verbatim, exit 0, zero changes (R3.4).
-    if (args.flags.dryRun) {
-      this.logger.info('--- Reverse SQL (dry run; no changes will be made) ---');
-      this.logger.info(reverse.raw);
-      this.logger.info('--- End of reverse SQL. Dry run complete. ---');
-      return EXIT_SUCCESS;
-    }
     this.logger.verbose(
       `Generated ${reverse.statements.length} reverse statement(s).`
     );
@@ -399,6 +397,25 @@ export class RollbackOrchestrator {
         `was deleted.`
     );
     this.logger.stepDone(STEP_LABELS.confirm);
+    return EXIT_SUCCESS;
+  }
+
+  /**
+   * Dry-run: generate the Reverse_SQL, emit it verbatim, exit 0 with zero
+   * changes and no confirmation (R3.4).
+   */
+  private async dryRun(cfg: ResolvedConfig, target: TargetMigration): Promise<number> {
+    this.logger.step(1, TOTAL_STEPS, STEP_LABELS.generate);
+    let reverse: ReverseSql;
+    try {
+      reverse = await this.reverseSqlGenerator.generate(cfg, target);
+    } catch (err) {
+      this.logger.stepFailed(STEP_LABELS.generate, err);
+      return EXIT_EXECUTION_FAILURE;
+    }
+    this.logger.info('--- Reverse SQL (dry run; no changes will be made) ---');
+    this.logger.info(reverse.raw);
+    this.logger.info('--- End of reverse SQL. Dry run complete. ---');
     return EXIT_SUCCESS;
   }
 

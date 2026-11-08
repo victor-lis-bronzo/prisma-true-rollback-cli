@@ -17,7 +17,7 @@
 
 import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { isAbsolute, join } from 'node:path';
+import { dirname, isAbsolute, join } from 'node:path';
 
 import { afterEach, describe, it, expect } from 'vitest';
 
@@ -144,5 +144,31 @@ describe('ConfigResolver.resolve — successful resolution (R7.1)', () => {
 
     expect(isAbsolute(config.schemaPath)).toBe(true);
     expect(config.schemaPath).toBe(schemaPath);
+  });
+});
+
+describe('ConfigResolver.resolve — SQLite path and .env handling', () => {
+  const resolver = new ConfigResolver();
+
+  it('resolves a relative SQLite URL against the schema directory', () => {
+    const { cwd, schemaPath } = makeProject('sqlite');
+    const config = resolver.resolve(cwd, { DATABASE_URL: 'file:./dev.db' });
+    expect(config.connectionUrl).toBe(`file:${join(dirname(schemaPath), 'dev.db')}`);
+  });
+
+  it('keeps absolute and in-memory SQLite URLs unchanged', () => {
+    const { cwd } = makeProject('sqlite');
+    expect(resolver.resolve(cwd, { DATABASE_URL: 'file:/abs/dev.db' }).connectionUrl).toBe('file:/abs/dev.db');
+    expect(resolver.resolve(cwd, { DATABASE_URL: 'file::memory:' }).connectionUrl).toBe('file::memory:');
+  });
+
+  it('loads DATABASE_URL from prisma/.env without overriding the process env', () => {
+    const { cwd, schemaPath } = makeProject('postgresql');
+    writeFileSync(join(schemaPath, '..', '.env'), '# c\nexport DATABASE_URL="postgresql://u:p@h/db"\nSHADOW_DATABASE_URL=postgresql://u:p@h/shadow\n', 'utf8');
+    const fromFile = resolver.resolve(cwd, {});
+    expect(fromFile.connectionUrl).toBe('postgresql://u:p@h/db');
+    expect(fromFile.shadowDatabaseUrl).toBe('postgresql://u:p@h/shadow');
+    const fromEnv = resolver.resolve(cwd, { DATABASE_URL: 'postgresql://env/db' });
+    expect(fromEnv.connectionUrl).toBe('postgresql://env/db');
   });
 });
