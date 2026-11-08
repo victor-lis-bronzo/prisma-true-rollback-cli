@@ -26,6 +26,9 @@ import {
   type SpawnOptionsWithoutStdio,
 } from 'node:child_process';
 
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+
 import type { DbEngine, EngineResult } from '../models/types.js';
 
 /**
@@ -34,8 +37,24 @@ import type { DbEngine, EngineResult } from '../models/types.js';
  */
 export const DEFAULT_ENGINE_TIMEOUT_MS = 30_000;
 
-/** The executable invoked to run the Prisma engine. */
+/** The executable invoked when the project has no local Prisma install. */
 const PRISMA_COMMAND = 'prisma';
+
+/**
+ * Resolve how to launch Prisma: the project's own install
+ * (`node_modules/prisma/build/index.js`, run with the current Node — works on
+ * every platform), falling back to `prisma` on the PATH.
+ */
+function resolvePrismaInvocation(projectDir: string): {
+  command: string;
+  prefixArgs: string[];
+} {
+  const script = join(projectDir, 'node_modules', 'prisma', 'build', 'index.js');
+  if (existsSync(script)) {
+    return { command: process.execPath, prefixArgs: [script] };
+  }
+  return { command: PRISMA_COMMAND, prefixArgs: [] };
+}
 
 /**
  * A minimal structural type describing the subset of a spawned child process
@@ -75,10 +94,12 @@ const defaultSpawn: SpawnFn = (command, args, options): SpawnedProcess =>
 
 /** Input to {@link PrismaEngineRunner.runDiff}. */
 export interface RunDiffInput {
-  /** Current DB / applied state (the "from" side of the diff). */
-  fromSchema: string;
-  /** Schema state preceding the Target_Migration (the "to" side of the diff). */
-  toState: string;
+  /** Live database URL: the current applied state (the "from" side). */
+  fromUrl: string;
+  /** Migrations directory WITHOUT the Target_Migration (the "to" side). */
+  toMigrationsDir: string;
+  /** Optional shadow database URL (required by Prisma for PostgreSQL/MySQL). */
+  shadowDatabaseUrl?: string;
   /** Resolved database engine. */
   engine: DbEngine;
   /** Timeout budget in milliseconds (30_000 by default, R3.5). */
@@ -92,13 +113,17 @@ export interface RunDiffInput {
  */
 export class PrismaEngineRunner {
   private readonly spawnFn: SpawnFn;
+  private readonly projectDir: string;
 
   /**
    * @param spawnFn - Optional injectable spawn function. Defaults to the real
    *   `child_process.spawn`; tests supply a deterministic fake.
+   * @param projectDir - Project root used to locate the local Prisma install
+   *   (defaults to the current working directory).
    */
-  constructor(spawnFn: SpawnFn = defaultSpawn) {
+  constructor(spawnFn: SpawnFn = defaultSpawn, projectDir: string = process.cwd()) {
     this.spawnFn = spawnFn;
+    this.projectDir = projectDir;
   }
 
   /**
@@ -120,6 +145,8 @@ export class PrismaEngineRunner {
    */
   runDiff(input: RunDiffInput): Promise<EngineResult> {
     const args = this.buildArgs(input);
+    const invocation = resolvePrismaInvocation(this.projectDir);
+    const spawnArgs = [...invocation.prefixArgs, ...args];
     const command = this.formatCommand(PRISMA_COMMAND, args);
     const timeoutMs =
       input.timeoutMs > 0 ? input.timeoutMs : DEFAULT_ENGINE_TIMEOUT_MS;
@@ -127,7 +154,10 @@ export class PrismaEngineRunner {
     return new Promise<EngineResult>((resolveResult) => {
       let child: SpawnedProcess;
       try {
-        child = this.spawnFn(PRISMA_COMMAND, args, { shell: false });
+        child = this.spawnFn(invocation.command, spawnArgs, {
+          shell: false,
+          cwd: this.projectDir,
+        });
       } catch {
         // A synchronous spawn failure (e.g. ENOENT surfaced synchronously)
         // maps to the binary-not-found outcome (R3.6). Any other synchronous
@@ -196,19 +226,24 @@ export class PrismaEngineRunner {
   /**
    * Build the argument vector for `prisma migrate diff`.
    *
-   * The diff runs `--from-schema-datamodel`/current applied state to the target
-   * `toState`, emitting a plain SQL script on stdout via `--script`.
+   * Diffs the live database (`--from-url`) against the migrations directory
+   * without the target migration (`--to-migrations`), emitting a plain SQL
+   * script on stdout via `--script`.
    */
   private buildArgs(input: RunDiffInput): string[] {
-    return [
+    const args = [
       'migrate',
       'diff',
-      '--from-schema-datamodel',
-      input.fromSchema,
-      '--to-schema-datamodel',
-      input.toState,
-      '--script',
+      '--from-url',
+      input.fromUrl,
+      '--to-migrations',
+      input.toMigrationsDir,
     ];
+    if (input.shadowDatabaseUrl !== undefined && input.shadowDatabaseUrl !== '') {
+      args.push('--shadow-database-url', input.shadowDatabaseUrl);
+    }
+    args.push('--script');
+    return args;
   }
 
   /**

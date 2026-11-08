@@ -48,8 +48,8 @@ class FakeSpawnedProcess extends EventEmitter implements SpawnedProcess {
 /** A representative, valid runDiff input; `timeoutMs` is overridden per test. */
 function makeInput(overrides: Partial<RunDiffInput> = {}): RunDiffInput {
   return {
-    fromSchema: 'from-schema-datamodel',
-    toState: 'to-schema-datamodel',
+    fromUrl: "file:from.db",
+    toMigrationsDir: "to-migrations",
     engine: 'postgresql',
     timeoutMs: 30_000,
     ...overrides,
@@ -168,5 +168,23 @@ describe('PrismaEngineRunner.runDiff', () => {
         command: expect.stringContaining('prisma'),
       });
     });
+  });
+});
+
+describe('PrismaEngineRunner argument construction', () => {
+  it('diffs the live URL against the migrations dir without the target, adding the shadow URL when set', async () => {
+    const seen: string[][] = [];
+    const spawnFn = ((_c: string, args: readonly string[]) => {
+      seen.push([...args]);
+      throw new Error('stop');
+    }) as unknown as import('../../src/engine/prisma-engine-runner.js').SpawnFn;
+    const runner = new PrismaEngineRunner(spawnFn, '/nonexistent-project');
+    await runner.runDiff(makeInput({ shadowDatabaseUrl: 'postgresql://shadow' }));
+    await runner.runDiff(makeInput());
+    expect(seen[0]).toEqual([
+      'migrate', 'diff', '--from-url', 'file:from.db', '--to-migrations', 'to-migrations',
+      '--shadow-database-url', 'postgresql://shadow', '--script',
+    ]);
+    expect(seen[1]).not.toContain('--shadow-database-url');
   });
 });

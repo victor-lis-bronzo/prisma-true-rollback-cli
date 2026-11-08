@@ -250,7 +250,12 @@ export class SqliteDriver implements DbDriver {
     return new Promise<Connection>((resolve, reject) => {
       try {
         const filePath = resolveSqlitePath(url);
-        const db = new Database(filePath);
+        // Never create a database file implicitly: a wrong path must fail loudly
+        // instead of leaving an empty database behind.
+        const db =
+          filePath === ':memory:'
+            ? new Database(filePath)
+            : new Database(filePath, { fileMustExist: true });
         // No network handshake for local files; apply the caller's timeout as a
         // busy timeout — the ms SQLite waits for a lock before erroring (R7.3).
         if (Number.isFinite(timeoutMs) && timeoutMs > 0) {

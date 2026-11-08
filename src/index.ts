@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /**
  * prisma-true-rollback — npx entrypoint (Task 15.1; design.md §"CLI Entrypoint /
  * Argument Parser", §1 "CLI Entrypoint / Argument Parser", §11 "Rollback
@@ -271,10 +270,4 @@ export async function main(
     printError(`Unexpected error: ${detail}. The rollback operation was aborted.`);
     return EXIT_FAILURE;
   }
-}
-
-// Only run when invoked directly as the CLI (not when imported in tests).
-if (import.meta.url === `file://${process.argv[1]}`) {
-  // eslint-disable-next-line @typescript-eslint/no-floating-promises
-  main().then((code) => process.exit(code));
 }

@@ -26,6 +26,10 @@
  * runner without spawning a real Prisma binary.
  */
 
+import { cpSync, existsSync, mkdtempSync, readdirSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+
 import { PrismaEngineRunner } from '../engine/prisma-engine-runner.js';
 import { ReverseSqlError } from '../models/errors.js';
 import type {
@@ -77,15 +81,24 @@ export class ReverseSqlGenerator {
     cfg: ResolvedConfig,
     target: TargetMigration
   ): Promise<ReverseSql> {
-    const result = await this.engineRunner.runDiff({
-      // The diff runs from the current applied schema back to the state
-      // preceding the Target_Migration (R3.1). The engine runner owns the
-      // precise `prisma migrate diff` argument construction.
-      fromSchema: cfg.schemaPath,
-      toState: target.folderPath,
-      engine: cfg.engine,
-      timeoutMs: ENGINE_TIMEOUT_MS,
-    });
+    // The diff runs from the live database back to the migration history
+    // WITHOUT the Target_Migration (R3.1): stage a temp copy of the migrations
+    // directory that omits the target and diff against it.
+    const stagedDir = this.stageMigrationsWithout(cfg.migrationsDir, target.name);
+    let result;
+    try {
+      result = await this.engineRunner.runDiff({
+        fromUrl: cfg.connectionUrl,
+        toMigrationsDir: stagedDir,
+        ...(cfg.shadowDatabaseUrl !== undefined
+          ? { shadowDatabaseUrl: cfg.shadowDatabaseUrl }
+          : {}),
+        engine: cfg.engine,
+        timeoutMs: ENGINE_TIMEOUT_MS,
+      });
+    } finally {
+      rmSync(stagedDir, { recursive: true, force: true });
+    }
 
     switch (result.kind) {
       case 'ok': {
@@ -113,6 +126,27 @@ export class ReverseSqlGenerator {
           'Reverse-SQL generation failed: the Prisma engine binary was not found.'
         );
     }
+  }
+
+  /**
+   * Copy every entry of `migrationsDir` (including `migration_lock.toml`) except
+   * the folder named `excluded` into a fresh temp directory, returning its path.
+   */
+  private stageMigrationsWithout(migrationsDir: string, excluded: string): string {
+    const staged = mkdtempSync(join(tmpdir(), 'prisma-true-rollback-'));
+    try {
+      // A missing directory stages as empty (the validator already ran).
+      const entries = existsSync(migrationsDir) ? readdirSync(migrationsDir) : [];
+      for (const entry of entries) {
+        if (entry !== excluded) {
+          cpSync(join(migrationsDir, entry), join(staged, entry), { recursive: true });
+        }
+      }
+    } catch (err) {
+      rmSync(staged, { recursive: true, force: true });
+      throw err;
+    }
+    return staged;
   }
 
   /**

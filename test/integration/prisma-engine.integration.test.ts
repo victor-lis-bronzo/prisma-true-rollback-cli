@@ -84,8 +84,8 @@ function makeStubSpawn(nodeArgs: string[]): SpawnFn & {
 /** A representative, valid runDiff input; timeout is generous for a real spawn. */
 function makeInput(overrides: Partial<RunDiffInput> = {}): RunDiffInput {
   return {
-    fromSchema: 'from-schema-datamodel',
-    toState: 'to-schema-datamodel',
+    fromUrl: "file:from.db",
+    toMigrationsDir: "to-migrations",
     engine: 'postgresql',
     timeoutMs: 15_000,
     ...overrides,
@@ -127,7 +127,7 @@ afterAll(() => {
 describe('PrismaEngineRunner.runDiff — real child process against a stub binary (Task 8.4)', () => {
   it('success stub → { kind: "ok", sql, command } with sql equal to the stub stdout (R3.1)', async () => {
     const spawnFn = makeStubSpawn([successStub]);
-    const runner = new PrismaEngineRunner(spawnFn);
+    const runner = new PrismaEngineRunner(spawnFn, tempDir);
 
     const result = await runner.runDiff(makeInput());
 
@@ -147,17 +147,17 @@ describe('PrismaEngineRunner.runDiff — real child process against a stub binar
     expect(spawnFn.invokedArgs).toEqual([
       'migrate',
       'diff',
-      '--from-schema-datamodel',
-      'from-schema-datamodel',
-      '--to-schema-datamodel',
-      'to-schema-datamodel',
+      '--from-url',
+      'file:from.db',
+      '--to-migrations',
+      'to-migrations',
       '--script',
     ]);
   });
 
   it('failure stub → { kind: "nonzero", exitCode, stderr } carrying the stub stderr (R3.2)', async () => {
     const spawnFn = makeStubSpawn([failureStub]);
-    const runner = new PrismaEngineRunner(spawnFn);
+    const runner = new PrismaEngineRunner(spawnFn, tempDir);
 
     const result = await runner.runDiff(makeInput());
 
@@ -179,7 +179,7 @@ describe('PrismaEngineRunner.runDiff — real child process against a stub binar
         ...options,
         shell: false,
       }) as ChildProcessWithoutNullStreams;
-    const runner = new PrismaEngineRunner(spawnFn);
+    const runner = new PrismaEngineRunner(spawnFn, tempDir);
 
     const result = await runner.runDiff(makeInput());
 
