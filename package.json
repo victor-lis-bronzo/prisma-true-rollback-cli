@@ -1,6 +1,6 @@
 {
   "name": "prisma-true-rollback-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A CLI (invoked via npx) that performs a true, destructive rollback of the most recently applied Prisma migration in development environments.",
   "license": "MIT",
   "type": "module",
